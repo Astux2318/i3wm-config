@@ -1,0 +1,285 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = #282A3E
+background-alt = #373B41
+foreground = #C5C8C6
+primary = #F0C674
+secondary = #8ABEB7
+alert = #A54242
+disabled = #707880
+
+[bar/example]
+#modules-left = i3
+width = 100%
+height = 24pt
+radius = 6
+dpi = 96
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 5pt
+border-size = 4pt
+border-color = #00000000
+padding-left = 0
+padding-right = 1
+module-margin = 1
+separator = >
+separator-foreground = ${colors.disabled}
+#font-0 = monospace;2
+font-0 = fixed:pixelsize=13;1
+font-1 = FontAwesome6FreeSolid:pixelsize=13;1
+font-2 = FontAwesome6Brands:pixelsize=13;1
+
+modules-left = xworkspaces xwindow
+modules-right = filesystem  alsa xkeyboard memory cpu wlan eth date
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+; wm-restack = generic
+; wm-restack = bspwm
+; wm-restack = i3
+
+; override-redirect = true
+
+[module/systray]
+type = internal/tray
+format-margin = 8pt
+tray-spacing = 16pt
+[module/xworkspaces]
+type = internal/xworkspaces
+label-active = %name%
+label-active-background = ${colors.background-alt}
+label-active-underline= ${colors.primary}
+label-active-padding = 1
+label-occupied = %name%
+label-occupied-padding = 1
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+label-empty = %name%
+label-empty-foreground = ${colors.disabled}
+label-empty-padding = 1
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
+label-mounted = %{F#F0C674}%mountpoint%%{F-} %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.disabled}
+[module/pulseaudio]
+#type = internal/pulseaudio
+#format-volume-prefix = "VOL "
+#format-volume-prefix-foreground = ${colors.primary}
+#format-volume = <label-volume>
+#label-volume = %percentage%%
+#label-muted = muted
+#label-muted-foreground = ${colors.disabled}
+
+; ===音量===
+; https://github.com/polybar/polybar/wiki/Module:-pulseaudio
+[module/alsa]
+type = internal/alsa
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+use-ui-max = true
+interval = 5
+format-volume = <ramp-volume> <label-volume>
+label-muted = 
+label-muted-foreground = #a1bfc9
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+; 左右键功能，pavucontrol 用于开关音量
+click-left = pavucontrol
+; click-middle =
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+label-layout = %layout%
+label-layout-foreground = ${colors.primary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-foreground = ${colors.background}
+label-indicator-background = ${colors.secondary}
+
+#[module/memory]
+#type = internal/memory
+#interval = 2
+#format-prefix = "RAM "
+#format-prefix-foreground = ${colors.primary}
+#label = %percentage_used:2%%
+
+; ===内存===
+; https://github.com/polybar/polybar/wiki/Module:-memory
+[module/memory]
+type = internal/memory
+; 刷新间隔，默认: 1
+interval = 3
+;format = <label> <ramp-used> <ramp-free>
+format = <label>
+label =  %gb_used%/%gb_free%
+label-foreground = #0452579
+; 用于 <ramp-used>
+ramp-used-0 = ▁
+ramp-used-1 = ▂
+ramp-used-2 = ▃
+ramp-used-3 = ▄
+ramp-used-4 = ▅
+ramp-used-5 = ▆
+ramp-used-6 = ▇
+ramp-used-7 = █
+
+ramp-used-0-foreground = #aaff77
+ramp-used-1-foreground = #aaff77
+ramp-used-2-foreground = #aaff77
+ramp-used-3-foreground = #aaff77
+ramp-used-4-foreground = #fba922
+ramp-used-5-foreground = #fba922
+ramp-used-6-foreground = #ff5555
+ramp-used-7-foreground = #ff5555
+
+; 用于 <ramp-free>
+ramp-free-0 = ▁
+ramp-free-1 = ▂
+ramp-free-2 = ▃
+ramp-free-3 = ▄
+ramp-free-4 = ▅
+ramp-free-5 = ▆
+ramp-free-6 = ▇
+ramp-free-7 = █
+
+ramp-free-0-foreground = #ff5555
+ramp-free-1-foreground = #ff5555
+ramp-free-2-foreground = #fba922
+ramp-free-3-foreground = #fba922
+ramp-free-4-foreground = #aaff77
+ramp-free-5-foreground = #aaff77
+ramp-free-6-foreground = #aaff77
+ramp-free-7-foreground = #aaff77
+
+
+
+
+#[module/cpu]
+#type = internal/cpu
+#interval = 2
+#format-prefix = "CPU "
+#format-prefix-foreground = ${colors.primary}
+#label = %percentage:2%%
+
+[module/cpu]
+type = internal/cpu
+; 刷新间隔，默认: 1
+interval = 0.5
+;format = <label> <ramp-coreload>
+format = <label>
+label =  %percentage%%
+label-foreground = #0452579
+; Spacing between individual per-core ramps
+ramp-coreload-spacing = 1
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7-foreground = #ff5555
+
+
+
+
+
+
+[network-base]
+type = internal/network
+nterval = 5
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-disconnected = %{F#F0C674}%{F#707880} disconnected
+
+
+
+
+
+
+
+[module/wlan]
+inherit = network-base
+interface-type = wireless
+#label-connected = {F#F0C674}  %local_ip%
+
+#[module/eth]
+#inherit = network-base
+#interface-type = wired
+#label-connected = %{F#F0C674}%ifname%%{F-} %local_ip%
+
+#[module/date]
+#type = internal/date
+#interval = 1
+#date = %H:%M
+#date-alt = %Y-%m-%d %H:%M:%S
+#label = %date%
+#label-foreground = ${colors.primary}
+
+; ===日期时间===
+; https://github.com/polybar/polybar/wiki/Module:-date
+[module/date]
+type = internal/date
+; 更新间隔, 默认: 1.0
+interval = 1.0
+format = <label>
+date = %Y-%m-%d%
+time = %H:%M
+# 另一种格式
+date-alt = %A, %d %B %Y
+time-alt = %H:%M:%S
+label =  %date%  %time%
+label-font = 1
+label-foreground = #eefafafa
+
+
+
+
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
+; vim:ft=dosini
+
+
+
