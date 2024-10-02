@@ -1,0 +1,20 @@
+# url_color                       #17a88b
+url_style                       straight
+
+font_family JetBrainsMono Nerd Font Mono
+font_size 15.0
+force_ltr no
+
+tab_bar_edge top
+tab_bar_style slant
+tab_bar_align left
+tab_bar_min_tabs 2
+tab_switch_strategy previous
+tab_separator " ┇"
+
+disable_ligatures	never
+background_opacity	0.89
+term xterm-256color
+
+
+include current-theme.conf
