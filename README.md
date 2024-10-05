@@ -7,4 +7,4 @@
 	
 	截图：
 	
-	![i3-gaps](i3.png "i3gaps")
+![i3-gaps](i3.png "i3gaps")
