@@ -85,7 +85,7 @@ font-3 = "Font Awesome 5 Brands:style=Regular:pixelsize=12;1"
 
 modules-left = i3 xwindow
 ;modules-center = mpd
-modules-right = upload download alsa filesystem xkeyboard cpu memory temperature wlan  battery date
+modules-right = upload download alsa filesystem xkeyboard cpu memory temperature wlan  battery date 
 
 tray-position = right
 tray-padding = 8
@@ -310,11 +310,12 @@ format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected = %ifname% disconnected
 label-disconnected-foreground = ${colors.foreground-alt}
 
+
 [module/battery]
 type = internal/battery
-battery = BAT0
-adapter = ADP1
-full-at = 98
+battery = BATT
+adapter = ACAD
+full-at = 100
 
 format-charging = <animation-charging>    <label-charging>
 format-charging-underline = ${colors.charging}
